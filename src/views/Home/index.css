@@ -1,0 +1,19 @@
+h1 {
+    color: white;
+    font-size: 2.8rem!important;
+}
+
+.navbar {
+    height: 110px;
+}
+
+
+@media (max-width:768px) {
+    .navbar {
+        height: 140px;
+    }
+    .navbar .container {
+        text-align: center;
+        justify-content: center!important;
+    }
+}
