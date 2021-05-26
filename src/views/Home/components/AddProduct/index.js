@@ -12,6 +12,7 @@ export default function AddProduct({ setProducts }) {
 
     const setProduct = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         const product = {
             productName,
             bagsAmount,
@@ -21,8 +22,7 @@ export default function AddProduct({ setProducts }) {
             price50: (costPrice * 1.5).toFixed(2),
             precioBlue: 'Proximamente',
             creationDate: new Date()
-        }
-        setIsLoading(true)
+        };
         try {
             await database.collection('productos').add(product)
             const { docs } = await database.collection("productos").orderBy("creationDate", "asc").get();
@@ -35,7 +35,7 @@ export default function AddProduct({ setProducts }) {
         setBagsAmount('');
         setCostPrice('');
         setShow(false);
-        setIsLoading(false)
+        setIsLoading(false);
     }
 
     const handleShow = () => setShow(true);
