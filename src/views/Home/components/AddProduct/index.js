@@ -8,6 +8,7 @@ export default function AddProduct({ setProducts }) {
     const [bagsAmount, setBagsAmount] = useState('');
     const [costPrice, setCostPrice] = useState('');
     const [show, setShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
 
     const setProduct = async (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ export default function AddProduct({ setProducts }) {
             precioBlue: 'Proximamente',
             creationDate: new Date()
         }
+        setIsLoading(true)
         try {
             await database.collection('productos').add(product)
             const { docs } = await database.collection("productos").orderBy("creationDate", "asc").get();
@@ -33,6 +35,7 @@ export default function AddProduct({ setProducts }) {
         setBagsAmount('');
         setCostPrice('');
         setShow(false);
+        setIsLoading(false)
     }
 
     const handleShow = () => setShow(true);
@@ -89,7 +92,10 @@ export default function AddProduct({ setProducts }) {
                             <Button 
                             variant='success'
                             type='submit'
-                            >Confirmar</Button>
+                            disabled={isLoading}
+                            >
+                                {isLoading ? 'Cargando...' : 'Confirmar'}
+                            </Button>
                         </Container>
                     </Form>
                 </Modal.Body>
